@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true, // untuk check kalau takde implicy sbb tak define type, kena bagi type, xleh bagi any
+    "target": "ES5", // ES5 untuk old browser, ES6 untuk modern browser, try la tsc mesti ada beza like var,let , const
+    "module": "CommonJS", //commonjs ni mcm require
+    "outDir": "dist"
+  }
+}
