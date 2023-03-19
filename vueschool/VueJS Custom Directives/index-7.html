@@ -1,0 +1,50 @@
+<!-- Example 7 The Directive’s Mounted Hook-->
+<!-- A directive can define hook functions that correspond to the bound element's parent component. In this lesson, we learn when and how to use the mounted directive hook. -->
+
+The Directive’s unMounted Hook
+<!-- In this lesson, we learn about a common gotcha when using custom directives together with intervals and events.
+   The key to avoiding such bugs is using the unmounted hook to clear the interval or detach the event listener. -->
+<script lang="ts">
+  import { ref } from "vue";
+  const colors = ref(["blue", "red", "green"]);
+  const vColor = {
+    //main point
+    mounted: (el, binding) => {
+      const colors = binding.value;
+      //here the main point
+      if (binding.modifiers.underline) {
+        el.style.textDecoration = "underline";
+      }
+      if (binding.modifiers.italic) {
+        el.style.textDecoration = "italic";
+      }
+      const speeds = {
+        slow: 2000,
+        normal: 1000,
+        fast: 500,
+        crazy: 100,
+      };
+      //:crazy and :slow is the arg
+      const speedName = binding.arg || "normal";
+      const speed = speeds[speedName];
+      let i = 0;
+      el.__ColorInterval = setInterval(() => {
+        el.style.color = colors[i];
+        i++;
+        if (i === colors.length) i = 0;
+      }, speed);
+    },
+
+    //main point
+    unmounted(el) {
+      //make sure to remove any interval once this directive remove
+      clearInterval(el.__ColorInterval);
+    },
+  };
+  setTimeout(() => {
+    colors.value.push("pink");
+  }, 5000);
+</script>
+<template>
+  <h1 v-color:crazy.underline.italic="colors">test</h1>
+</template>

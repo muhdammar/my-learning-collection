@@ -1,0 +1,26 @@
+<!-- Click Outside Directive
+In this lesson, you learn how to create a click outside directive. This directive solves a real-world problem and is a very handy custom vue.js directive that we use all the time.
+
+Remember to always clean up your mess in the unmounted hook! -->
+<script lang="ts">
+  const handleClickedOutside = () => alert("u clicked outside");
+  const vClickOutside = {
+    mounted(el, binding) {
+      el.__ClickOutsideHandler___ = (event) => {
+        if (!(el === event.target || el.contains(event.target))) {
+          binding.value(event);
+        }
+      };
+      document.body.addEventListener("click", __ClickOutsideHandler___);
+    },
+    unmounted(el) {
+      document.body.removeEventListener("click", __ClickOutsideHandler___);
+    },
+  };
+</script>
+<template>
+  <h2>Click outside</h2>
+  <div v-click-outside="handleClickedOutside" class="box">
+    Here is some text
+  </div>
+</template>

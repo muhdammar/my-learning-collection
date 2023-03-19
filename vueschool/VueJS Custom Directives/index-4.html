@@ -1,0 +1,20 @@
+<!-- Example 4 directives are reactive-->
+<script lang="ts">
+  import { ref } from "vue";
+  const colors = ref(["blue", "red", "green"]);
+  const vColor = (el, binding) => {
+    const colors = binding.value;
+    let i = 0;
+    setInterval(() => {
+      el.style.color = colors[i];
+      i++;
+      if (i === colors.length) i = 0;
+    }, 500);
+  };
+  setTimeout(() => {
+    colors.value.push("pink");
+  }, 5000);
+</script>
+<template>
+  <h1 v-color="colors">test</h1>
+</template>

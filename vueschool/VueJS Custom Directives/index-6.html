@@ -1,0 +1,38 @@
+<!-- Example 6 Vue.js Custom Directive Modifiers-->
+<!-- Vue.js Custom Directive Modifiers
+Custom Vue.js Directives accepts multiple modifiers. In this lesson, we learn how to create custom modifiers on our directives. -->
+<script lang="ts">
+  import { ref } from "vue";
+  const colors = ref(["blue", "red", "green"]);
+  const vColor = (el, binding) => {
+    const colors = binding.value;
+    //here the main point
+    if (binding.modifiers.underline) {
+      el.style.textDecoration = "underline";
+    }
+    if (binding.modifiers.italic) {
+      el.style.textDecoration = "italic";
+    }
+    const speeds = {
+      slow: 2000,
+      normal: 1000,
+      fast: 500,
+      crazy: 100,
+    };
+    //:crazy and :slow is the arg
+    const speedName = binding.arg || "normal";
+    const speed = speeds[speedName];
+    let i = 0;
+    setInterval(() => {
+      el.style.color = colors[i];
+      i++;
+      if (i === colors.length) i = 0;
+    }, speed);
+  };
+  setTimeout(() => {
+    colors.value.push("pink");
+  }, 5000);
+</script>
+<template>
+  <h1 v-color:crazy.underline.italic="colors">test</h1>
+</template>

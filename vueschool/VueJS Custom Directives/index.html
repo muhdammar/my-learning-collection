@@ -1,0 +1,52 @@
+<!-- Example 1 -->
+<script lang="ts">
+  const vPurple = (el) => {
+    el.style.color = "purple";
+  };
+</script>
+<template>
+  <h1 v-purple>test</h1>
+</template>
+
+<!-- Example 2 -->
+<script lang="ts">
+  const vColor = (el, binding) => {
+    el.style.color = binding.value;
+  };
+</script>
+<template>
+  <h1 v-color="'blue'">test</h1>
+  <h1 v-color="'red'">test</h1>
+</template>
+
+<!-- Example 3 -->
+<script lang="ts">
+  const vColorV2 = (el, binding) => {
+    const colors = binding.value;
+    let i = 0;
+    setInterval(() => {
+      el.style.color = colors[i];
+      i++;
+      if (i === colors.length) i = 0;
+    }, 500);
+  };
+</script>
+<template>
+  <h1 v-color-v2="['blue','green']">test</h1>
+</template>
+
+<!-- Example 4 directives are reactive-->
+<script lang="ts">
+  const vColorV2 = (el, binding) => {
+    const colors = binding.value;
+    let i = 0;
+    setInterval(() => {
+      el.style.color = colors[i];
+      i++;
+      if (i === colors.length) i = 0;
+    }, 500);
+  };
+</script>
+<template>
+  <h1 v-color-v2="['blue','green']">test</h1>
+</template>

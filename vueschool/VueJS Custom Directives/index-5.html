@@ -1,0 +1,34 @@
+<!-- Example 5 Vue.js Custom Directive Argument-->
+<!-- Vue.js Custom Directive Argument
+Custom Vue.js directives support up to one argument. The argument, in this case slow, is specified with the colon v-color:slow.
+
+In this lesson, we learn how we to create a speed argument for our custom directive. -->
+<script lang="ts">
+  import { ref } from "vue";
+  const colors = ref(["blue", "red", "green"]);
+  const vColor = (el, binding) => {
+    const colors = binding.value;
+    const speeds = {
+      slow: 2000,
+      normal: 1000,
+      fast: 500,
+      crazy: 100,
+    };
+    //:crazy and :slow is the arg
+    const speedName = binding.arg || "normal";
+    const speed = speeds[speedName];
+    let i = 0;
+    setInterval(() => {
+      el.style.color = colors[i];
+      i++;
+      if (i === colors.length) i = 0;
+    }, speed);
+  };
+  setTimeout(() => {
+    colors.value.push("pink");
+  }, 5000);
+</script>
+<template>
+  <h1 v-color:slow="colors">test</h1>
+  <h1 v-color:crazy="colors">test</h1>
+</template>
