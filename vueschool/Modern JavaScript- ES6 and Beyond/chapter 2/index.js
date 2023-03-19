@@ -107,4 +107,15 @@ Promise.resolve(myPromise).then((res) => console.log(res));
 Promise.resolve(name).then((res) => console.log(res));
 
 myPromise.then((res) => console.log(res));
-name.then((res) => console.log(res)); //throw an error since it not a function, safe approach use promise resolve
+//name.then((res) => console.log(res)); //throw an error since it not a function, safe approach use promise resolve
+
+//topic: Learn Async/Await in JavaScript
+function myPromiseFunction() {
+  return new Promise((res) => res("first"));
+}
+
+function firstFunction() {
+  myPromiseFunction().then((res) => console.log(res));
+  console.log("second");
+}
+firstFunction();
