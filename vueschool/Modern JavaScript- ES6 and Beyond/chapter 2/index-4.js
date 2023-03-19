@@ -1,4 +1,5 @@
 //2 news data structure in es6 which set and map
+//topic: Learn how to work with Sets and Maps in JavaScript
 const map = new Map([
   [1, "one"],
   [2, "two"],
